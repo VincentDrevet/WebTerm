@@ -1,6 +1,9 @@
 # WebTerm
 HTML terminal for Windows and Unix
 
+
+![WebTerm](https://github.com/VincentDrevet/WebTerm/blob/master/demo/WebTerm.png)
+
 ## Requirements: 
 
 nodejs and npm are required to run the application.
