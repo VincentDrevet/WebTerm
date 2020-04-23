@@ -8,6 +8,8 @@ const session = require('express-session')
 const pty = require('node-pty');
 // port de l'application
 const port = 9000
+const viewspath = "/usr/local/WebTerm/views/"
+const publicpath = "/usr/local/WebTerm/public"
 const DBfile = "db.sqlite"
 
 function LoggingBrowse(req) {
@@ -68,7 +70,7 @@ wss.on('connection', function(client){
 
 
 // Chargement des fichiers static
-app.use(express.static('public'));
+app.use(express.static(publicpath));
 
 // Middleware
 app.set('view engine','ejs')
@@ -90,13 +92,13 @@ app.get('/', function (req, res) {
     }
     else
     {
-        res.render("index")
+        res.render(viewspath+"index")
     }
   })
 
 app.get('/connexion', function (req, res) {
     LoggingBrowse(req)
-    res.render("connexion")
+    res.render(viewspath+"connexion")
 })
 
 app.post('/connexion', function (req,res) {
@@ -107,7 +109,7 @@ app.post('/connexion', function (req,res) {
             console.log(err.message)
         }
         else if(row == null) {
-            res.render("connexion", {error: "Nom d'utilisateur ou mot de passe incorrect !"})
+            res.render(viewspath+"connexion", {error: "Nom d'utilisateur ou mot de passe incorrect !"})
         }
         else {
             if(sha256(req.body.Password) == row.password)
@@ -119,7 +121,7 @@ app.post('/connexion', function (req,res) {
             else
             {
                 console.log("Echec de l'authentification pour "+req.body.Username)
-                res.render("connexion", {error: "Nom d'utilisateur ou mot de passe incorrect !"})
+                res.render(viewspath+"connexion", {error: "Nom d'utilisateur ou mot de passe incorrect !"})
             }
         }
     })
